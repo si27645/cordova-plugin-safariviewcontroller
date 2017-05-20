@@ -76,11 +76,13 @@ public class CustomTabsHelper {
         List<ResolveInfo> resolvedActivityList = pm.queryIntentActivities(activityIntent, PackageManager.MATCH_ALL);
         List<String> packagesSupportingCustomTabs = new ArrayList<>();
         for (ResolveInfo info : resolvedActivityList) {
-            Intent serviceIntent = new Intent();
-            serviceIntent.setAction(ACTION_CUSTOM_TABS_CONNECTION);
-            serviceIntent.setPackage(info.activityInfo.packageName);
-            if (pm.resolveService(serviceIntent, 0) != null) {
-                packagesSupportingCustomTabs.add(info.activityInfo.packageName);
+            if (info.activityInfo.packageName.equals("com.android.chrome")) {
+                Intent serviceIntent = new Intent();
+                serviceIntent.setAction(ACTION_CUSTOM_TABS_CONNECTION);
+                serviceIntent.setPackage(info.activityInfo.packageName);
+                if (pm.resolveService(serviceIntent, 0) != null) {
+                    packagesSupportingCustomTabs.add(info.activityInfo.packageName);
+                }
             }
         }
 
