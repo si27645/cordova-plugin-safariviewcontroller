@@ -144,6 +144,7 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
 
     private void startCustomTabActivity(String url, Intent intent) {
         intent.setData(Uri.parse(url));
+        intent.setPackage("com.android.chrome");
         if(mStartAnimationBundle == null)
             cordova.startActivityForResult(this, intent, CUSTOM_TAB_REQUEST_CODE);
         else {
