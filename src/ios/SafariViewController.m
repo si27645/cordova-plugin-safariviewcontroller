@@ -111,10 +111,7 @@
 - (void) hide:(CDVInvokedUrlCommand*)command {
   if (vc != nil) {
     [vc dismissViewControllerAnimated:self.animated completion:nil];
-      // adding a 30 sec. delay befor killing the view controller object as a work arround for iOS 10
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 30 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-          vc = nil;
-      });
+    vc = nil;
   }
   [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
