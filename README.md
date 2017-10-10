@@ -1,6 +1,6 @@
 SafariViewController Cordova Plugin
 ===================================
-This is a branch from the plugin created by Eddy Verbruggen - [@eddyverbruggen](https://twitter.com/eddyverbruggen)
+This is a branch from the plugin created by [Eddy Verbruggen](https://github.com/EddyVerbruggen/cordova-plugin-safariviewcontroller)
 
 The only diffirence is that this plugin is forcing the use of chrome browser.
 
