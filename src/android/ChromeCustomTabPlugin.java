@@ -43,12 +43,11 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
-        switch (action) {
-            case "isAvailable":
+        if(action=="isAvailable"){
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, mCustomTabPluginHelper.isAvailable()));
                 return true;
-
-            case "show": {
+}else
+        if(action=="show"){
                 final JSONObject options = args.getJSONObject(0);
                 final String url = options.optString("url");
                 if(TextUtils.isEmpty(url)){
@@ -85,23 +84,23 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
                 }
                 callbackContext.sendPluginResult(pluginResult);
                 return true;
-            }
-            case "connectToService": {
+            }else
+if(action=="connectToService"){
                 if (bindCustomTabsService())
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, true));
                 else
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Failed to connect to service"));
                 return true;
-            }
-            case "warmUp": {
+            }else
+if(action=="warmUp"){
                 if (warmUp()) {
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, true));
                 } else {
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Failed to warm up service"));
                 }
                 return true;
-            }
-            case "mayLaunchUrl": {
+            }else
+if(action=="mayLaunchUrl"){
                 final String url = args.getString(0);
                 if(mayLaunchUrl(url)){
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, true));
@@ -109,8 +108,7 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR,String.format("Failed prepare to launch url: %s", url)));
                 }
                 return true;
-            }
-        }
+            }else
         return false;
     }
 
@@ -133,13 +131,9 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
 
     private void addTransition(CustomTabsIntent.Builder builder, String transition) {
         final String animType = "anim";
-        switch (transition){
-            case ("slide"):
-            default:
                 mStartAnimationBundle = ActivityOptionsCompat.makeCustomAnimation(
                         cordova.getActivity(), getIdentifier("slide_in_right", animType), getIdentifier("slide_out_left", animType)).toBundle();
                 builder.setExitAnimations(cordova.getActivity(), getIdentifier("slide_in_left", animType), getIdentifier("slide_out_right", animType));
-        }
     }
 
     private void startCustomTabActivity(String url, Intent intent) {
